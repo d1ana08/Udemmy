@@ -26,6 +26,10 @@ class LessonInline(admin.TabularInline, TranslationInlineModelAdmin):
     model = Lesson
     extra = 1
 
+class AssignmentInline(admin.TabularInline, TranslationInlineModelAdmin):
+    model = Assignment
+    extra = 1
+
 
 class QuestionInline(admin.TabularInline, TranslationInlineModelAdmin):
     model = Question
@@ -34,7 +38,7 @@ class QuestionInline(admin.TabularInline, TranslationInlineModelAdmin):
 
 @admin.register(Course)
 class ProductAdmin(TranslationAdmin):
-    inlines = [LessonInline]
+    inlines = [LessonInline, AssignmentInline]
 
     class Media:
         js = (
@@ -65,7 +69,6 @@ class ProductAdmin(TranslationAdmin):
 
 
 admin.site.register(UserProfile)
-admin.site.register(Assignment)
 admin.site.register(Exam)
 admin.site.register(Certificate)
 admin.site.register(Review)

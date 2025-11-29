@@ -3,12 +3,14 @@ from rest_framework import viewsets, generics, status
 from .models import (UserProfile, Category, SubCategory, Course, Lesson,Assignment, Option,
                      Question, Exam, Certificate, Review)
 from .serializers import (UserRegisterSerializer, UserProfileListSerializer, UserProfileDetailSerializer,
-                          CategoryListSerializer, CategoryNameSerializer,
+                          CategoryListSerializer, UserLoginSerializer,
                           SubCategorySerializers, CourseListSerializers, CourseDetailSerializers,
                           LessonListSerializers, LessonDetailSerializers, AssignmentListSerializers,
                           AssignmentDetailSerializers, OptionListSerializers, QuestionSerializers,
                           ExamListSerializers, ExamDetailSerializers, CertificateSerializers, ReviewCreateSerializer)
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class RegisterView(generics.CreateAPIView):
@@ -19,6 +21,20 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class LoginView(TokenObtainPairView):
+    serializer_class = UserLoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except Exception:
+            return Response({"detail": "Неверные учетные данные"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        user = serializer.validated_data
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
 class UserProfileListAPIView(generics.ListAPIView):
