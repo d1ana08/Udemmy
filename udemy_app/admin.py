@@ -10,6 +10,7 @@ class SubCategoryInline(admin.TabularInline, TranslationInlineModelAdmin):
 
 @admin.register(Category)
 class ProductAdmin(TranslationAdmin):
+    inlines = [SubCategoryInline]
 
     class Media:
         js = (

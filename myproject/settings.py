@@ -32,8 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'udemy_app',
     "phonenumber_field",
-    'drf_yasg'  # Yet Another Swagger generator
-
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
