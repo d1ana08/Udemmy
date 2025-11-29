@@ -1,6 +1,4 @@
 from pathlib import Path
-
-from django.conf.global_settings import AUTH_USER_MODEL
 from dotenv import load_dotenv
 import os
 
@@ -34,6 +32,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'udemy_app',
     "phonenumber_field",
+    'drf_yasg'  # Yet Another Swagger generator
+
 ]
 
 MIDDLEWARE = [
